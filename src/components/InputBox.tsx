@@ -17,9 +17,15 @@ function InputBox() {
   const [error3, setError3] = useState(false);
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   // testing purposes rn
   const onClick = () => {
     if (!error1 && !error2 && !error3) {
+      setLoading(true);
+      // wait one second and set loading to false
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
       setSubmitted(true);
       console.log(typedText1);
       console.log(typedText2);
@@ -75,7 +81,8 @@ function InputBox() {
         setError={setError3}
       />
       <SubmitButton onClick={onClick} />
-      {submitted && <Typography>Questions will display here</Typography>}
+      {submitted && loading && <Typography>Loading...</Typography>}
+      {submitted && !loading && <Typography>Questions will display here</Typography>}
     </Box>
   );
 }
